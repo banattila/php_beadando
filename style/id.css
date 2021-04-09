@@ -1,0 +1,107 @@
+
+#kis-menu li {
+    width: 100%;
+    text-align: center;
+    background-color: #938686;
+    padding: 8px;
+    margin-bottom: 7px;
+    opacity: 0.5;
+    box-shadow: 3px 3px #444444;
+    transition: opacity 1s, font-weight 2s;
+}
+
+#kis-menu li a{
+    display: inline-block;
+    width: 100%;
+    transition: opacity 1s, font-weight 2s;
+}
+
+#kis-menu li:hover, #kis-menu li:focus{
+    opacity: 1;
+    font-weight: bolder;
+}
+#kis-menu a:hover #kis-menu a:focus{
+    font-style: normal;
+}
+
+#szolgaltatas{
+    position: static;
+}
+
+#szolgaltatas h3{
+    text-align: center;
+}
+
+#szolgaltatas ul li {
+    border-bottom: 1px solid #444444;
+    margin: 5px;
+    padding: 5px;
+}
+
+#szolgaltatas ul li:nth-child(even){
+    background-color: #938686;
+    border-bottom:2px solid #444444;
+}
+
+#feltoltes-icon{
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+}
+
+#file-feltoltes{
+    animation: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#regisztracio > h4{
+    text-align: center;
+    color: #938686;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+#form-kontener{
+    display: block;
+    margin: 20px;
+    width: 60%;
+    background-color: #efe6df;
+}
+
+#img-kontener{
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 250px));
+}
+
+#img-kontener figure{
+    border-radius: 10px 0;
+    opacity: .8;
+    transition: all 2s;
+    transform: skewX(-5deg);
+}
+
+#img-kontener figure:hover{
+    transform: scale(1.2) translate(10%) skewX(0);
+    z-index: 100;
+    opacity: 1;
+    top: 250px;
+}
+#media-player{
+    position: static;
+    margin: 20px;
+}
+#udv{
+    display: inline-block;
+}
+
+#adatok{
+    background-color: #efe6df;
+}
+
+#mezok, #tabla-adat{
+    color: #938686;
+    font-style: italic;
+    text-decoration: underline #938686;
+}
