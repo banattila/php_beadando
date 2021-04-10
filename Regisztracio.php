@@ -1,11 +1,17 @@
+<?php
+session_start();
+$uzenetek = [];
+$siker = false;
+?>
 <!DOCTYPE html>
 <html lang="hu">
 <head>
     <meta charset="UTF-8"/>
-    <meta http-equiv="Content-Type" , name="text/html"/>
+    <meta http-equiv="Content-Type" name="text/html"/>
     <meta name="author" content="Tóbel Dávid, Bán Attila"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10.0, user-scalable=yes"/>
-    <title>Kapcsolat</title>
+    <title><?php include "config/config.php";
+        getTitle(); ?></title>
     <link rel="stylesheet" href="style/alap.css"/>
     <link rel="stylesheet" href="style/querik-animaciok.css"/>
     <link rel="stylesheet" href="style/id.css"/>
@@ -14,7 +20,6 @@
 
 </head>
 <body>
-<?php include_once "header.php" ?>
 <main>
     <div class="fontos" id="regisztracio">
         <h4>Ha szeretne kapcsolatba kerülni cégünkkel, akkor az alábbi oldalon szükgéges regisztrálni</h4>
@@ -22,7 +27,7 @@
         <strong>A (*)-al jelölt mezők kitöltése kötelező</strong>
     </div>
     <div id="form-kontener">
-        <form action="felhasznalok/Regisztral.php" method="post" enctype="multipart/form-data" autocomplete="off">
+        <form action="Regisztracio.php" method="post" enctype="multipart/form-data" autocomplete="off">
             <div class="fontos">
             </div>
             <div class="input-container">
@@ -39,9 +44,6 @@
                 <label>E-mail cím:
                     <input type="email" name="email" autocomplete="off" placeholder="példa@valami.hu" required/>
                 </label>
-                <label>Url cím:
-                    <input type="url" name="url" autocomplete="off" placeholder="www.valami.hu"/>
-                </label>
             </div>
             <div class="input-container">
                 <label>Jelszó: <span>*</span>
@@ -49,13 +51,13 @@
                            placeholder="Minimum 8 karakter"/>
                 </label>
                 <label>Jelszó még egyszer: <span>*</span>
-                    <input type="password" name="pwd_again" maxlength="20" autocomplete="off"
+                    <input type="password" name="pwd2" maxlength="20" autocomplete="off"
                            placeholder="********" required/>
                 </label>
             </div>
             <div class="input-container">
                 <label>Születési idő:
-                    <input type="date" name="bdate" min="1990-01-01" max="2003-01-01" value="1990-01-01"/>
+                    <input type="date" name="bdate" min="1900-01-01" max="2003-01-01" required/>
                 </label>
             </div>
             <div class="input-container">
@@ -78,7 +80,7 @@
                 <label><input type="radio" name="nem"/>Nem nyilatkozom</label>
             </fieldset>
             <fieldset>
-                <label><input type="checkbox" name="hirlevel" value="hirlevel" checked />Kérek hírlevelet</label>
+                <label><input type="checkbox" name="hirlevel" value="hirlevel" checked/>Kérek hírlevelet</label>
             </fieldset>
             <div>
                 <input type="submit" name="submit" value="Elküld"/>
@@ -89,3 +91,68 @@
 </main>
 </body>
 </html>
+
+        <?php
+        include_once "Felhasznalokezeles.php";
+        $felhasznalok = beolvas("felhasznalok.txt");
+
+
+        $nev = "";
+        $fnev = "";
+        $email = "";
+        $pwd = "";
+        $pwd2 = "";
+        $siker = false;
+
+        if (isset($_POST["submit"])) {
+
+            //név legalább 3 karakter hosszú
+            if (isset($_POST['nev']) && strlen($_POST['nev']) > 3) {
+                $nev = $_POST['nev'];
+            }
+
+            //felhasználónév foglalt-e
+            if (isset($_POST['fnev'])) {
+                $fnev = $_POST['fnev'];
+
+                foreach ($felhasznalok as $felhasznalo) {
+                    if ($felhasznalo->getFnev() === $fnev) {
+                        $uzenetek[] = "A felhasználónév már foglalt";
+                    }
+                }
+            }
+            //érvényes formátumú email-cím
+
+            if (isset($_POST['email'])) {
+                $email = $_POST['email'];
+            }
+
+            //a jelszó legalább 5 karakter hosszú
+
+            if (isset($_POST['pwd']) && strlen($_POST['pwd']) > 5) {
+                $pwd = $_POST['pwd'];
+            } else {
+                $uzenetek[] = "Legalább 5 karakter hosszú legyen a jelszó";
+            }
+
+            //a két jelszó megegyezik-e
+
+            if (!isset($_POST['pwd']) || !isset($_POST['pwd2']) || $_POST['pwd'] !== $_POST['pwd2']) {
+                $uzenetek[] = "A két jelszó nem egyezik meg";
+                echo "jelszo: " . $_POST['pwd'] . ", jelszo2: " . $_POST['pwd2'];
+            }
+        }
+        if (count($uzenetek) === 0) {
+            echo "Sikeresen regisztráltál!" . "<br />";
+            $felh = new Felhasznalo($nev, $fnev, $email, $pwd);
+            echo $felh->getNev() . "<br />" . $felh->getFnev() . "<br />" . $felh->getEmail() . "<br />" . $felh->getPwd();
+            kiir($felh, "felhasznalok.txt");
+            header("Location: SikeresRegisztracio.php");
+
+        } else {
+            foreach ($uzenetek as $uzenet) {
+                echo "<p>" . $uzenet . "</p>";
+            }
+        }
+        ?>
+

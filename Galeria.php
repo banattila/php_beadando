@@ -1,24 +1,25 @@
 <?php
+session_start();
+include_once "Linkek.php";
 
-    include_once "Linkek.php";
-
-    $kepek = [
-      new Linkek("img/takaritas_1.jpg","Első kép"),
-      new Linkek("img/takaritas_2.jpg","Második kép"),
-      new Linkek("img/takaritas_3.jpg","Harmadik kép"),
-      new Linkek("img/takaritas_4.jpg","Negyedik kép"),
-      new Linkek("img/takaritas_5.jpg","Ötödik kép"),
-      new Linkek("img/takaritas_6.jpg","Hatodik kép")
-    ];
+$kepek = [
+    new Linkek("img/takaritas_1.jpg", "Első kép"),
+    new Linkek("img/takaritas_2.jpg", "Második kép"),
+    new Linkek("img/takaritas_3.jpg", "Harmadik kép"),
+    new Linkek("img/takaritas_4.jpg", "Negyedik kép"),
+    new Linkek("img/takaritas_5.jpg", "Ötödik kép"),
+    new Linkek("img/takaritas_6.jpg", "Hatodik kép")
+];
 ?>
 
 <!DOCTYPE html>
 <html lang="hu">
 <head>
     <meta charset="UTF-8"/>
-    <meta http-equiv="Content-Type"  name="text/html"/>
+    <meta http-equiv="Content-Type" name="text/html"/>
     <meta name="author" content="Tóbel Dávid, Bán Attila"/>
-    <title>Galéria</title>
+    <title><?php include "config/config.php";
+        getTitle(); ?></title>
     <link rel="stylesheet" href="style/alap.css"/>
     <link rel="stylesheet" href="style/querik-animaciok.css"/>
     <link rel="stylesheet" href="style/id.css"/>
@@ -44,10 +45,10 @@
     </aside>
     <section id="img-kontener">
         <?php foreach ($kepek as $link) { ?>
-        <figure>
-            <img src="<?php echo $link->getLink() ?>" alt="takaritas"/>
-            <figcaption><?php echo $link->getNev()?></figcaption>
-        </figure>
+            <figure>
+                <img src="<?php echo $link->getLink() ?>" alt="takaritas"/>
+                <figcaption><?php echo $link->getNev() ?></figcaption>
+            </figure>
         <?php } ?>
     </section>
 </main>

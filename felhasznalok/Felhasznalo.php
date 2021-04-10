@@ -6,14 +6,12 @@ class Felhasznalo
     private $nev;
     private $fnev;
     private $email;
-    private $url;
     private $pwd;
     private $bdate;
     private $nem;
     private $hirlevel;
 
-    public function __construct($nev, $fnev, $email, $pwd)
-    {
+    public function __construct($nev, $fnev, $email, $pwd) {
         $this->nev = $nev;
         $this->fnev = $fnev;
         $this->email = $email;
@@ -42,14 +40,6 @@ class Felhasznalo
 
     public function setEmail($email) {
         $this->email = $email;
-    }
-
-    public function getUrl() {
-        return $this->url;
-    }
-
-    public function setUrl($url) {
-        $this->url = $url;
     }
 
     public function getPwd() {

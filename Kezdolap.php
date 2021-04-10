@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -5,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html"/>
     <meta charset="UTF-8"/>
     <meta name="author" content="Tóbel Dávid, Bán Attila"/>
-    <title>Kezdőlap</title>
+    <title><?php include "config/config.php"; getTitle();?></title>
     <link rel="stylesheet" href="style/alap.css"/>
     <link rel="stylesheet" href="style/querik-animaciok.css"/>
     <link rel="stylesheet" href="style/id.css"/>
