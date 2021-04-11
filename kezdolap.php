@@ -21,7 +21,9 @@ session_start();
 <main>
     <h1>Üdvözlöm az LHB Clean honlapján</h1>
     <aside>
-        <iframe src="bejelentkezes.php" allow="autoplay" width="300px" height="450px"></iframe>
+        <iframe
+                src="<?php if (isset($_SESSION['user'])) echo "galeria.php"; else echo "bejelentkezes.php"; ?>"
+                allow="autoplay" width="300px" height="450px"></iframe>
     </aside>
     <section>
         <h2>Bemutatkozás</h2>

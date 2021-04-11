@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['user'])){
+    header("Location: bejelentkezes.php?uzenet=galeria");
+}
+
 include_once "Linkek.php";
 
 $kepek = [

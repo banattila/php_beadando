@@ -18,6 +18,9 @@ if (isset($_SESSION['user'])) {
 }
 
 $aktiv = explode("/", $_SERVER['REQUEST_URI'])[2];
+if (strpos($aktiv, "?")){
+    $aktiv = explode("?", $aktiv)[0];
+}
 
 ?>
 

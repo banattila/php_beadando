@@ -5,7 +5,7 @@ session_start();
 <html lang="hu">
 <head>
     <meta charset="UTF-8"/>
-    <meta http-equiv="Content-Type" , name="text/html"/>
+    <meta http-equiv="Content-Type" name="text/html"/>
     <meta name="author" content="Tóbel Dávid, Bán Attila"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10.0, user-scalable=yes"/>
     <title><?php include "config/config.php"; getTitle();?></title>

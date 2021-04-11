@@ -1,30 +1,41 @@
 <?php
 
-function kiir(Felhasznalo $felhasznalo, $path){
-        echo "Kiírás kezdése" . "<br />";
+function kiir(Felhasznalo $felhasznalo, $path)
+{
+    $file = null;
+    try {
         $file = fopen($path, "a");
-        if ($file === false){
+        if ($file === false) {
             die("Hiba a fájl megnyitásakor");
         }
-        fwrite($file, serialize($felhasznalo) .  "\n");
+        fwrite($file, serialize($felhasznalo) . "\n");
+    } catch (Error $error) {
+        header("Location: ../kezdolap.php?uzenet=" . $error->getMessage());
+    } finally {
         fclose($file);
-        echo "Kiírás befejéze" . "<br />";
-        return "Sikeres mentés";
+    }
+    echo "Kiírás befejéze" . "<br />";
+    return "Sikeres mentés";
 
 }
 
-function beolvas($path) {
-        $felhasznalok = [];
-        $f = fopen($path, "r");
-        if ($f === false){
-            die("Hiba a fájl megnyitásakor");
-        }
+function beolvas($path)
+{
+    $felhasznalok = [];
+    $file = null;
+    try {
+        $file = fopen($path, "r");
 
-        while (($line = fgets($f)) !== false){
+        while (($line = fgets($file)) !== false) {
             $felhasznalo = unserialize($line);
             $felhasznalok[] = $felhasznalo;
         }
-
-        fclose($f);
-        return $felhasznalok;
+    } catch (Error $error) {
+        header("Location: kezdolap.php?uzenet=" . $error->getMessage());
+    } finally {
+        if ($file != null) {
+            fclose($file);
+        }
+    }
+    return $felhasznalok;
 }

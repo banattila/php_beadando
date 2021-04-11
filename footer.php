@@ -1,4 +1,5 @@
 <?php
+session_start();
     $keszitok = [
             "Tóbel Dávid",
             "Bán Attila"

@@ -1,21 +1,22 @@
 <?php
 
 
-class Felhasznalo
-{
+class Felhasznalo {
     private $nev;
     private $fnev;
     private $email;
     private $pwd;
-    private $bdate;
+    private $szulido;
     private $nem;
     private $hirlevel;
+    private $profilKep;
 
-    public function __construct($nev, $fnev, $email, $pwd) {
+    public function __construct($nev, $fnev, $email, $pwd, $szulido) {
         $this->nev = $nev;
         $this->fnev = $fnev;
         $this->email = $email;
         $this->pwd = $pwd;
+        $this->szulido = $szulido;
     }
 
     public function getNev() {
@@ -50,12 +51,12 @@ class Felhasznalo
         $this->pwd = $pwd;
     }
 
-    public function getBdate() {
-        return $this->bdate;
+    public function getSzulido() {
+        return $this->szulido;
     }
 
-    public function setBdate($bdate) {
-        $this->bdate = $bdate;
+    public function setSzulido($szulido) {
+        $this->szulido = $szulido;
     }
 
     public function getNem() {
@@ -69,7 +70,16 @@ class Felhasznalo
         return $this->hirlevel;
     }
 
-    public function setHirlevel($hirlevel) {
+    public function setHirlevel(bool $hirlevel) {
         $this->hirlevel = $hirlevel;
     }
+
+    public function getProfilKep(){
+        return $this->profilKep;
+    }
+
+    public function setProfilKep($profilKep){
+        $this->profilKep = $profilKep;
+    }
+
 }

@@ -7,22 +7,41 @@ $felhasznalok = beolvas("felhasznalok/felhasznalok.txt");
 $fh = null;
 $fnev = "";
 $pwd = "";
-$uzenet = "Sikertelen belépés";
+$bejelentkezesUzenet = "";
 
+
+if (isset($_GET['uzenet'])){
+    if ($_GET['uzenet'] === "galeria"){
+        $bejelentkezesUzenet = "A galéria megtekintéséhez be kell jelentkeznie!";
+    } else if($_GET['uzenet'] === "logout"){
+        $bejelentkezesUzenet = "Sikeresen kijelentkeztél!";
+    } else if($_GET['uzenet'] === "reg"){
+        $bejelentkezesUzenet = "A regisztráció sikeres volt!<br/>Kérem jelentkezzen be!";
+    }
+}
 if (isset($_POST['login'])) {
     if (!isset($_POST['fnev']) || trim($_POST['fnev']) === "" || !isset($_POST['pwd']) || trim($_POST['pwd']) === "") {
-        $uzenet = "Minden mezőt ki kell tölteni";
+        $bejelentkezesUzenet = "Minden mezőt ki kell tölteni";
     } else {
         $fnev = $_POST['fnev'];
         $pwd = $_POST['pwd'];
-    }
+        $bejelentkezesUzenet = "Sikertelen belépés";
 
-    foreach ($felhasznalok as $felhasznalo) {
-        if ($felhasznalo instanceof Felhasznalo) {
-            if ($felhasznalo->getFnev() === $fnev && $felhasznalo->getPwd() === $pwd) {
-                $uzenet = "Sikeres belépés";
-                $_SESSION['user'] = $felhasznalo;
-                header("Location: kezdolap.php");
+        foreach ($felhasznalok as $felhasznalo) {
+            if ($felhasznalo instanceof Felhasznalo) {
+                if ($felhasznalo->getFnev() === $fnev && $felhasznalo->getPwd() === $pwd) {
+                    $bejelentkezesUzenet = "Sikeres belépés";
+                    $adatok = [];
+                    $adatok['Név'] = $felhasznalo->getnev();
+                    $adatok['Felhasználónév'] = $felhasznalo->getFnev();
+                    $adatok['Email cím'] = $felhasznalo->getEmail();
+                    $adatok['Neme'] = $felhasznalo->getNem();
+                    $adatok['Születési idő'] = $felhasznalo->getSzulido();
+                    $adatok['profile'] = $felhasznalo->getProfilKep();
+                    $adatok['Hírlevelet kér'] = ($felhasznalo->getHirlevel())?"Igen":"Nem";
+                    $_SESSION['user'] = $adatok;
+                    header("Location: profil.php?uzenet=login");
+                }
             }
         }
     }
@@ -48,6 +67,12 @@ if (isset($_POST['login'])) {
 <body>
 <?php include_once "header.php"; ?>
 <main>
+
+    <div class="<?php if ($bejelentkezesUzenet !== "") echo "form-kontener"; ?>">
+        <?php
+        echo "<p>" . $bejelentkezesUzenet . "</p>";
+        ?>
+    </div>
     <div class="form-kontener">
         <form action="bejelentkezes.php" method="post" autocomplete="off">
             <label>Felhasználónév:
@@ -61,10 +86,8 @@ if (isset($_POST['login'])) {
             <input type="submit" name="login" value="Belép"/>
         </form>
     </div>
-    <div>
-        <?php
-            echo "<p>" . $uzenet . "</p>";
-        ?>
+    <div class="form-kontener">
+        <h3><a href="regisztracio.php">Ha még nem regisztráltál, akkor itt megteheted</a></h3>
     </div>
 </main>
 <?php include_once "footer.php"; ?>
