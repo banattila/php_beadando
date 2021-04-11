@@ -1,5 +1,5 @@
 <?php
-include_once "Felhasznalokezeles.php";
+/*include_once "Felhasznalokezeles.php";
 include_once "Felhasznalo.php";
 $felhasznalok = beolvas("felhasznalok.txt");
 
@@ -56,10 +56,10 @@ if (count($uzenetek) === 0){
     $felh = new Felhasznalo($nev, $fnev, $email, $pwd);
     echo $felh->getNev()  . "<br />" . $felh->getFnev()  . "<br />" . $felh->getEmail()  . "<br />" . $felh->getPwd();
     kiir($felh, "felhasznalok.txt");
-    header("Location: SikeresRegisztracio.php");
+    header("Location: sikeresRegisztracio.php");
 
 } else {
     foreach ($uzenetek as $uzenet){
         echo $uzenet;
     }
-}
+}*/

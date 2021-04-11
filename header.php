@@ -3,18 +3,18 @@ session_start();
 include_once "Linkek.php";
 
 $navLista = [
-    new Linkek("Kezdolap.php", "Főoldal"),
-    new Linkek("Szolgaltatasok.php", "Szolgáltatások"),
-    new Linkek("Galeria.php", "Galéria"),
-    new Linkek("Rolunk.php", "Rólunk")
+    new Linkek("kezdolap.php", "Főoldal"),
+    new Linkek("szolgaltatasok.php", "Szolgáltatások"),
+    new Linkek("galeria.php", "Galéria"),
+    new Linkek("rolunk.php", "Rólunk")
 ];
 
 if (isset($_SESSION['user'])) {
-    $navLista[] = new Linkek("Profil.php", "Profilom");
-    $navLista[] = new Linkek("Kijelentkezes.php", "Kijelentkezés");
+    $navLista[] = new Linkek("profil.php", "Profilom");
+    $navLista[] = new Linkek("kijelentkezes.php", "Kijelentkezés");
 } else {
-    $navLista[] = new Linkek("Bejelentkezes.php", "Bejelentkezés");
-    $navLista[] = new Linkek("Regisztracio.php", "Regisztráció");
+    $navLista[] = new Linkek("bejelentkezes.php", "Bejelentkezés");
+    $navLista[] = new Linkek("regisztracio.php", "Regisztráció");
 }
 
 $aktiv = explode("/", $_SERVER['REQUEST_URI'])[2];
@@ -22,7 +22,7 @@ $aktiv = explode("/", $_SERVER['REQUEST_URI'])[2];
 ?>
 
 <header>
-    <a href="Kezdolap.php">
+    <a href="kezdolap.php">
         <img src="img/Kep_rolunk.png" alt="rolunk" width="100" height="100"/>
     </a>
     <div class="icon-menu">

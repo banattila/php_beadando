@@ -1,7 +1,6 @@
 <?php
 session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -11,28 +10,29 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10.0, user-scalable=yes"/>
     <title><?php include "config/config.php";
         getTitle(); ?></title>
-    <link rel="icon" href="img/Kep_rolunk.png"/>
     <link rel="stylesheet" href="style/alap.css"/>
     <link rel="stylesheet" href="style/querik-animaciok.css"/>
     <link rel="stylesheet" href="style/id.css"/>
     <link rel="stylesheet" href="style/classok.css"/>
     <link rel="icon" href="img/Kep_rolunk.png"/>
+
 </head>
 <body>
-<?php include_once "header.php";  ?>
-
+<?php include_once "header.php" ?>
 <main>
-    <?php include_once "felhasznalok/Felhasznalokezeles.php";
-    include_once "felhasznalok/Felhasznalo.php";
-    $felhasznalok = beolvas("felhasznalok/felhasznalok.txt");
-
-    foreach ($felhasznalok as $fh) {
-        if ($fh instanceof Felhasznalo) {
-            echo $fh->getNev();
-        }
-    }
-    ?>
-    <?php include_once "footer.php"; ?>
+    <h1>Sikeres regisztráció<br />Kérjük jelentkezzen be a regisztráció után</h1>
+    <form action="sikeresRegisztracio.php" method="post">
+        <input type="submit" name="vissza" value="Jelentkezzen be!" />
+    </form>
 </main>
+
+<?php include_once "footer.php" ?>
 </body>
 </html>
+
+
+<?php
+if (isset($_POST['vissza'])){
+    header("Location: bejelentkezes.php");
+}
+?>

@@ -89,3 +89,18 @@
     display: block;
 }
 .fo-menu{}
+
+.rejt {
+    display: none;
+}
+
+.belep {
+    max-width: 500px;
+}
+
+.form-kontener{
+    display: block;
+    margin: 20px;
+    width: 60%;
+    background-color: #efe6df;
+}

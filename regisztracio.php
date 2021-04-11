@@ -2,6 +2,65 @@
 session_start();
 $uzenetek = [];
 $siker = false;
+
+include "felhasznalok/Felhasznalokezeles.php";
+include "felhasznalok/Felhasznalo.php";
+$felhasznalok = beolvas("felhasznalok/felhasznalok.txt");
+
+$nev = "";
+$fnev = "";
+$email = "";
+$pwd = "";
+$pwd2 = "";
+
+$felh = null;
+
+if (isset($_POST["submit"])) {
+
+    //név legalább 3 karakter hosszú
+    if (isset($_POST['nev']) && strlen($_POST['nev']) > 3) {
+        $nev = $_POST['nev'];
+    }
+
+    //felhasználónév foglalt-e
+    if (isset($_POST['fnev'])) {
+        $fnev = $_POST['fnev'];
+
+        foreach ($felhasznalok as $felhasznalo) {
+            if ($felhasznalo->getFnev() === $fnev) {
+                $uzenetek[] = "A felhasználónév már foglalt";
+            }
+        }
+    }
+    //érvényes formátumú email-cím
+
+    if (isset($_POST['email'])) {
+        $email = $_POST['email'];
+    }
+
+    //a jelszó legalább 5 karakter hosszú
+
+    if (isset($_POST['pwd']) && strlen($_POST['pwd']) > 5) {
+        $pwd = $_POST['pwd'];
+    } else {
+        $uzenetek[] = "Legalább 5 karakter hosszú legyen a jelszó";
+    }
+
+    //a két jelszó megegyezik-e
+
+    if (!isset($_POST['pwd']) || !isset($_POST['pwd2']) || $_POST['pwd'] !== $_POST['pwd2']) {
+        $uzenetek[] = "A két jelszó nem egyezik meg";
+    }
+
+    if (count($uzenetek) === 0 ) {
+        $felh = new Felhasznalo($nev, $fnev, $email, $pwd);
+        kiir($felh, "felhasznalok/felhasznalok.txt");
+        $siker = true;
+    } else {
+        $siker = false;
+        $mutat = true;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="hu">
@@ -20,14 +79,26 @@ $siker = false;
 
 </head>
 <body>
+<?php include_once "header.php"?>
 <main>
+    <aside>
+        <?php
+        if ($siker === true){
+            header("Location: sikeresRegisztracio.php");
+        } else {
+            foreach ($uzenetek as $uzenet) {
+                echo "<p>" . $uzenet . "</p>";
+            }
+        }
+        ?>
+    </aside>
     <div class="fontos" id="regisztracio">
         <h4>Ha szeretne kapcsolatba kerülni cégünkkel, akkor az alábbi oldalon szükgéges regisztrálni</h4>
 
         <strong>A (*)-al jelölt mezők kitöltése kötelező</strong>
     </div>
-    <div id="form-kontener">
-        <form action="Regisztracio.php" method="post" enctype="multipart/form-data" autocomplete="off">
+    <div class="form-kontener">
+        <form action="regisztracio.php" method="post" enctype="multipart/form-data" autocomplete="off">
             <div class="fontos">
             </div>
             <div class="input-container">
@@ -91,68 +162,3 @@ $siker = false;
 </main>
 </body>
 </html>
-
-        <?php
-        include_once "Felhasznalokezeles.php";
-        $felhasznalok = beolvas("felhasznalok.txt");
-
-
-        $nev = "";
-        $fnev = "";
-        $email = "";
-        $pwd = "";
-        $pwd2 = "";
-        $siker = false;
-
-        if (isset($_POST["submit"])) {
-
-            //név legalább 3 karakter hosszú
-            if (isset($_POST['nev']) && strlen($_POST['nev']) > 3) {
-                $nev = $_POST['nev'];
-            }
-
-            //felhasználónév foglalt-e
-            if (isset($_POST['fnev'])) {
-                $fnev = $_POST['fnev'];
-
-                foreach ($felhasznalok as $felhasznalo) {
-                    if ($felhasznalo->getFnev() === $fnev) {
-                        $uzenetek[] = "A felhasználónév már foglalt";
-                    }
-                }
-            }
-            //érvényes formátumú email-cím
-
-            if (isset($_POST['email'])) {
-                $email = $_POST['email'];
-            }
-
-            //a jelszó legalább 5 karakter hosszú
-
-            if (isset($_POST['pwd']) && strlen($_POST['pwd']) > 5) {
-                $pwd = $_POST['pwd'];
-            } else {
-                $uzenetek[] = "Legalább 5 karakter hosszú legyen a jelszó";
-            }
-
-            //a két jelszó megegyezik-e
-
-            if (!isset($_POST['pwd']) || !isset($_POST['pwd2']) || $_POST['pwd'] !== $_POST['pwd2']) {
-                $uzenetek[] = "A két jelszó nem egyezik meg";
-                echo "jelszo: " . $_POST['pwd'] . ", jelszo2: " . $_POST['pwd2'];
-            }
-        }
-        if (count($uzenetek) === 0) {
-            echo "Sikeresen regisztráltál!" . "<br />";
-            $felh = new Felhasznalo($nev, $fnev, $email, $pwd);
-            echo $felh->getNev() . "<br />" . $felh->getFnev() . "<br />" . $felh->getEmail() . "<br />" . $felh->getPwd();
-            kiir($felh, "felhasznalok.txt");
-            header("Location: SikeresRegisztracio.php");
-
-        } else {
-            foreach ($uzenetek as $uzenet) {
-                echo "<p>" . $uzenet . "</p>";
-            }
-        }
-        ?>
-

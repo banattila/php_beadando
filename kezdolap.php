@@ -21,7 +21,7 @@ session_start();
 <main>
     <h1>Üdvözlöm az LHB Clean honlapján</h1>
     <aside>
-        <iframe src="Galeria.php#img-kontener" allow="autoplay" width="300px" height="450px"></iframe>
+        <iframe src="bejelentkezes.php" allow="autoplay" width="300px" height="450px"></iframe>
     </aside>
     <section>
         <h2>Bemutatkozás</h2>
@@ -88,11 +88,11 @@ session_start();
             <div id="szolgaltatas">
                 <h3>SZOLGÁLTATÁSAINK</h3>
                 <ul>
-                    <li><a href="Szolgaltatasok.php#ablaktisztitas">Ablaktisztítás</a></li>
-                    <li><a href="Szolgaltatasok.php#garazstakaritas">Garázstakarítás</a></li>
-                    <li><a href="Szolgaltatasok.php#iroda-takaritas">Iroda Takarítás</a></li>
-                    <li><a href="Szolgaltatasok.php#padloszonyeg">Padlószőnyeg Takarítás</a></li>
-                    <li><a href="Szolgaltatasok.php#pvc-padlo">PVC padló tisztítás és bevonatolás</a></li>
+                    <li><a href="szolgaltatasok.php#ablaktisztitas">Ablaktisztítás</a></li>
+                    <li><a href="szolgaltatasok.php#garazstakaritas">Garázstakarítás</a></li>
+                    <li><a href="szolgaltatasok.php#iroda-takaritas">Iroda Takarítás</a></li>
+                    <li><a href="szolgaltatasok.php#padloszonyeg">Padlószőnyeg Takarítás</a></li>
+                    <li><a href="szolgaltatasok.php#pvc-padlo">PVC padló tisztítás és bevonatolás</a></li>
                 </ul>
             </div>
         </div>
