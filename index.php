@@ -1,5 +1,10 @@
 <?php
+
+if (isset($_GET['PHPSESSID'])){
+    session_id($_GET['PHPSESSID']);
+}
 session_start();
+$id = session_id();
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +27,7 @@ session_start();
     <h1>Üdvözlöm az LHB Clean honlapján</h1>
     <aside>
         <iframe
-                src="<?php if (isset($_SESSION['user'])) echo "galeria.php"; else echo "bejelentkezes.php"; ?>"
+                src="<?php if (isset($_SESSION['user'])) echo "galeria.php?PHPSESSID=". session_id(); else echo "bejelentkezes.php?PHPSESSID=". session_id(); ?>"
                 allow="autoplay" width="300px" height="450px"></iframe>
     </aside>
     <section>

@@ -10,7 +10,7 @@ function kiir(Felhasznalo $felhasznalo, $path)
         }
         fwrite($file, serialize($felhasznalo) . "\n");
     } catch (Error $error) {
-        header("Location: ../kezdolap.php?uzenet=" . $error->getMessage());
+        header("Location: ../index.php?uzenet=" . $error->getMessage());
     } finally {
         fclose($file);
     }
@@ -31,7 +31,7 @@ function beolvas($path)
             $felhasznalok[] = $felhasznalo;
         }
     } catch (Error $error) {
-        header("Location: kezdolap.php?uzenet=" . $error->getMessage());
+        header("Location: ../index.php?uzenet=" . $error->getMessage());
     } finally {
         if ($file != null) {
             fclose($file);

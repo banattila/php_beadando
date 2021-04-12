@@ -1,5 +1,9 @@
 <?php
+if (isset($_GET['PHPSESSID'])){
+    session_id($_GET['PHPSESSID']);
+}
 session_start();
+$id = session_id();
 include "felhasznalok/Felhasznalokezeles.php";
 include "felhasznalok/Felhasznalo.php";
 $felhasznalok = beolvas("felhasznalok/felhasznalok.txt");
@@ -31,16 +35,16 @@ if (isset($_POST['login'])) {
             if ($felhasznalo instanceof Felhasznalo) {
                 if ($felhasznalo->getFnev() === $fnev && $felhasznalo->getPwd() === $pwd) {
                     $bejelentkezesUzenet = "Sikeres belépés";
-                    $adatok = [];
-                    $adatok['Név'] = $felhasznalo->getnev();
-                    $adatok['Felhasználónév'] = $felhasznalo->getFnev();
-                    $adatok['Email cím'] = $felhasznalo->getEmail();
-                    $adatok['Neme'] = $felhasznalo->getNem();
-                    $adatok['Születési idő'] = $felhasznalo->getSzulido();
-                    $adatok['profile'] = $felhasznalo->getProfilKep();
-                    $adatok['Hírlevelet kér'] = ($felhasznalo->getHirlevel())?"Igen":"Nem";
-                    $_SESSION['user'] = $adatok;
-                    header("Location: profil.php?uzenet=login");
+                    $b = [];
+                    $b['Név'] = $felhasznalo->getnev();
+                    $b['Felhasználónév'] = $felhasznalo->getFnev();
+                    $b['Email cím'] = $felhasznalo->getEmail();
+                    $b['Neme'] = $felhasznalo->getNem();
+                    $b['Születési idő'] = $felhasznalo->getSzulido();
+                    $b['profile'] = $felhasznalo->getProfilKep();
+                    $b['Hírlevelet kér'] = ($felhasznalo->getHirlevel())?"Igen":"Nem";
+                    $_SESSION['user'] = $b;
+                    header("Location: profil.php?PHPSESSID=". session_id());
                 }
             }
         }

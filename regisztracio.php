@@ -1,5 +1,9 @@
 <?php
+if (isset($_GET['PHPSESSID'])){
+    session_id($_GET['PHPSESSID']);
+}
 session_start();
+$id = session_id();
 $uzenetek = [];
 $siker = false;
 
@@ -160,7 +164,7 @@ if (isset($_POST["submit"])) {
     <div class="<?php if (count($uzenetek) > 0) echo "form-container"; ?>">
         <?php
         if ($siker === true){
-            header("Location: bejelentkezes.php?uzenet=reg");
+            header("Location: bejelentkezes.php?PHPSESSID=". $id ."&uzenet=reg");
         } else {
             foreach ($uzenetek as $uzenet) {
                 echo "<p>" . $uzenet . "</p>";
@@ -221,7 +225,7 @@ if (isset($_POST["submit"])) {
                     <input type="file" name="kep" accept="image/*"/>
                 </label>
             </div>
-            <input type="hidden" id="rejtettId" name="rejtett" value="1234"/>
+
             <fieldset>
                 <legend>Nem kiválasztása</legend>
                 <label><input type="radio" name="nem" value="Nő" />Nő</label>

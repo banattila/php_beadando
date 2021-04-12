@@ -1,8 +1,11 @@
 <?php
-session_start();
+if (isset($_GET['PHPSESSID'])){
+    session_id($_GET['PHPSESSID']);
+}
 
+session_start();
 if (!isset($_SESSION['user'])){
-    header("Location: bejelentkezes.php?uzenet=galeria");
+    header("Location: bejelentkezes.php?PHPSESSID=". session_id() ."&uzenet=galeria");
 }
 
 include_once "Linkek.php";
