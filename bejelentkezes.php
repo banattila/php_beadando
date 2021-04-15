@@ -1,6 +1,9 @@
 <?php
-if (isset($_GET['PHPSESSID'])){
-    session_id($_GET['PHPSESSID']);
+setcookie("testcookie", "hello");
+if (!isset($_COOKIE['testcookie'])){
+    if (isset($_GET['PHPSESSID'])){
+        session_id($_GET['PHPSESSID']);
+    }
 }
 session_start();
 $id = session_id();
