@@ -7,51 +7,14 @@ if (!isset($_COOKIE['testcookie'])){
 }
 session_start();
 $id = session_id();
-include "felhasznalok/Felhasznalokezeles.php";
-include "felhasznalok/Felhasznalo.php";
-$felhasznalok = beolvas("felhasznalok/felhasznalok.txt");
 
-$fh = null;
-$fnev = "";
-$pwd = "";
-$bejelentkezesUzenet = "";
-
+include "config/bejelentkez.php";
 
 if (isset($_GET['uzenet'])){
-    if ($_GET['uzenet'] === "galeria"){
-        $bejelentkezesUzenet = "A galéria megtekintéséhez be kell jelentkeznie!";
-    } else if($_GET['uzenet'] === "logout"){
-        $bejelentkezesUzenet = "Sikeresen kijelentkeztél!";
-    } else if($_GET['uzenet'] === "reg"){
-        $bejelentkezesUzenet = "A regisztráció sikeres volt!<br/>Kérem jelentkezzen be!";
-    }
+    messages($messages);
 }
 if (isset($_POST['login'])) {
-    if (!isset($_POST['fnev']) || trim($_POST['fnev']) === "" || !isset($_POST['pwd']) || trim($_POST['pwd']) === "") {
-        $bejelentkezesUzenet = "Minden mezőt ki kell tölteni";
-    } else {
-        $fnev = $_POST['fnev'];
-        $pwd = $_POST['pwd'];
-        $bejelentkezesUzenet = "Sikertelen belépés";
-
-        foreach ($felhasznalok as $felhasznalo) {
-            if ($felhasznalo instanceof Felhasznalo) {
-                if ($felhasznalo->getFnev() === $fnev && $felhasznalo->getPwd() === $pwd) {
-                    $bejelentkezesUzenet = "Sikeres belépés";
-                    $b = [];
-                    $b['Név'] = $felhasznalo->getnev();
-                    $b['Felhasználónév'] = $felhasznalo->getFnev();
-                    $b['Email cím'] = $felhasznalo->getEmail();
-                    $b['Neme'] = $felhasznalo->getNem();
-                    $b['Születési idő'] = $felhasznalo->getSzulido();
-                    $b['profile'] = $felhasznalo->getProfilKep();
-                    $b['Hírlevelet kér'] = ($felhasznalo->getHirlevel())?"Igen":"Nem";
-                    $_SESSION['user'] = $b;
-                    header("Location: profil.php" . $GLOBALS['suffix']);
-                }
-            }
-        }
-    }
+    login($messages);
 }
 ?>
 
@@ -75,9 +38,9 @@ if (isset($_POST['login'])) {
 <?php include_once "includes/header.php"; ?>
 <main>
 
-    <div class="<?php if ($bejelentkezesUzenet !== "") echo "form-kontener"; ?>">
+    <div class="<?php if ($messages !== "") echo "form-kontener"; ?>">
         <?php
-        echo "<p>" . $bejelentkezesUzenet . "</p>";
+        echo "<p>" . $messages . "</p>";
         ?>
     </div>
     <div class="form-kontener">
