@@ -72,7 +72,7 @@ if (isset($_POST['login'])) {
     <link rel="icon" href="img/Kep_rolunk.png"/>
 </head>
 <body>
-<?php include_once "header.php"; ?>
+<?php include_once "includes/header.php"; ?>
 <main>
 
     <div class="<?php if ($bejelentkezesUzenet !== "") echo "form-kontener"; ?>">
@@ -97,6 +97,6 @@ if (isset($_POST['login'])) {
         <h3><a href="regisztracio.php">Ha még nem regisztráltál, akkor itt megteheted</a></h3>
     </div>
 </main>
-<?php include_once "footer.php"; ?>
+<?php include_once "includes/footer.php"; ?>
 </body>
 </html>

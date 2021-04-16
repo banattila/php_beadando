@@ -39,7 +39,7 @@ $kepek = [
     <link rel="icon" href="img/Kep_rolunk.png"/>
 </head>
 <body>
-<?php include_once "header.php" ?>
+<?php include_once "includes/header.php" ?>
 <main>
     <aside>
         <div class="media">

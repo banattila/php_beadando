@@ -22,7 +22,7 @@ $id = session_id();
     <link rel="icon" href="img/Kep_rolunk.png"/>
 </head>
 <body>
-<?php include_once "header.php" ?>
+<?php include_once "includes/header.php" ?>
 <main>
     <h1>Üdvözlöm az LHB Clean honlapján</h1>
     <aside>
@@ -105,6 +105,6 @@ $id = session_id();
         </div>
     </section>
 </main>
-<?php include_once "footer.php" ?>
+<?php include_once "includes/footer.php" ?>
 </body>
 </html>

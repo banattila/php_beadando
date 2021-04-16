@@ -87,6 +87,6 @@ session_start();
         </p>
     </section>
 </main>
-<?php include_once "footer.php" ?>
+<?php include_once "includes/footer.php" ?>
 </body>
 </html>

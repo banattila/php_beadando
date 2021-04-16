@@ -40,7 +40,7 @@ if (isset($_POST['delete'])){
     <link rel="icon" href="img/Kep_rolunk.png"/>
 </head>
 <body>
-<?php include_once "header.php"; ?>
+<?php include_once "includes/header.php"; ?>
 <main>
     <div>
         <?php echo $uzenet;?>
@@ -74,6 +74,6 @@ if (isset($_POST['delete'])){
     </div>
 </main>
 
-<?php include_once "footer.php"; ?>
+<?php include_once "includes/footer.php"; ?>
 </body>
 </html>

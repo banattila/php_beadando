@@ -20,7 +20,7 @@ session_start();
     <link rel="icon" href="img/Kep_rolunk.png"/>
 </head>
 <body>
-<?php include_once "header.php" ?>
+<?php include_once "includes/header.php" ?>
 <main>
     <aside>
         <nav id="kis-menu">
@@ -226,6 +226,6 @@ session_start();
     </section>
 
 </main>
-<?php include_once "footer.php" ?>
+<?php include_once "includes/footer.php" ?>
 </body>
 </html>
