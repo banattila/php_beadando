@@ -68,15 +68,22 @@ function checkAge(): string{
 
 function savePic($path, Felhasznalo $felhasznalo): bool{
     if (isset($_FILES['kep'])){
-        if (isset($_POST['nev'])){
-            $cel = $path . $_POST['nev'] . "." . strtolower(pathinfo($_FILES['kep']['name'], PATHINFO_EXTENSION));
+
+        $kiterjesztesek = ["png", "jpg", "jpeg"];
+        $kiterjesztes = strtolower(pathinfo($_FILES['kep']['name'], PATHINFO_EXTENSION));
+        if(in_array($kiterjesztes, $kiterjesztesek)){
+            if (isset($_POST['nev'])){
+                $cel = $path . $_POST['nev'] . "." . strtolower(pathinfo($_FILES['kep']['name'], PATHINFO_EXTENSION));
+            } else {
+                $cel = $path. $_FILES['kep']['name'];
+            }
+            if (move_uploaded_file($_FILES['kep']['tmp_name'], $cel)){
+                $felhasznalo->setProfilKep($cel);
+            } else {
+                throw new BeviteliAdatokException("A kép mentése nem sikerült");
+            }
         } else {
-            $cel = $path. $_FILES['kep']['name'];
-        }
-        if (move_uploaded_file($_FILES['kep']['tmp_name'], $cel)){
-            $felhasznalo->setProfilKep($cel);
-        } else {
-            throw new BeviteliAdatokException("A kép mentése nem sikerült");
+            return false;
         }
     }
     return true;

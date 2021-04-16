@@ -14,13 +14,6 @@ if (isset($_GET['uzenet']) && strlen($_GET['uzenet']) > 0 && $_GET['uzenet'] ===
 
 if (isset($_POST['delete'])){
     deleteUser();
-    $_SESSION = array();
-    if (isset($_COOKIE)){
-        setcookie(session_name(), session_id(), time() - 3600, "/");
-    }
-    session_destroy();
-    header("Location: regisztracio.php?uzenet=delete");
-
 }
 ?>
 

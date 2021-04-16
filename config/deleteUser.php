@@ -16,4 +16,10 @@ function deleteUser(){
     echo $key;
     unset($felhasznalok[$key]);
     torol("felhasznalok/felhasznalok.txt", $felhasznalok);
+    $_SESSION = array();
+    if (isset($_COOKIE)){
+        setcookie(session_name(), session_id(), time() - 3600, "/");
+    }
+    session_destroy();
+    header("Location: regisztracio.php?uzenet=delete");
 }

@@ -50,7 +50,7 @@ if (strpos($aktiv, "?")){
                 <?php
                 foreach ($navLista as $link) { ?>
                     <li class="alahuz <?php if ($link->getLink() === $aktiv) echo "aktiv" ?>">
-                        <a href=<?php echo $link->getLink() . "?PHPSESSID=" . $id?>>
+                        <a href=<?php echo $link->getLink() . $GLOBALS['suffix']?>>
                             <?php echo $link->getNev() ?>
                         </a>
                     </li>

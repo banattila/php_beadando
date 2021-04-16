@@ -8,6 +8,7 @@ if (!isset($_COOKIE['testcookie'])){
 session_start();
 $id = session_id();
 
+$messages = "";
 include "config/bejelentkez.php";
 
 if (isset($_GET['uzenet'])){
