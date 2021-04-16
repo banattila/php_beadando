@@ -167,7 +167,7 @@ if (isset($_POST["submit"])) {
             if (isset($GLOBALS['suffix']) && $GLOBALS['suffix'] !== ""){
                 header("Location: bejelentkezes.php". $GLOBALS['suffix'] ."&uzenet=reg");
             } else {
-                header("Location: bejelntkezes.php?uzenet=reg");
+                header("Location: bejelentkezes.php?uzenet=reg");
             }
         } else {
             foreach ($uzenetek as $uzenet) {

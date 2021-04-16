@@ -5,22 +5,37 @@ function kiir(Felhasznalo $felhasznalo, $path)
     $file = null;
     try {
         $file = fopen($path, "a");
-        if ($file === false) {
-            die("Hiba a fájl megnyitásakor");
-        }
+
         fwrite($file, serialize($felhasznalo) . "\n");
     } catch (Error $error) {
         header("Location: ../index.php?uzenet=" . $error->getMessage());
     } finally {
         fclose($file);
     }
-    echo "Kiírás befejéze" . "<br />";
     return "Sikeres mentés";
 
 }
 
+function torol($path, $felhasznalok){
+    $file = null;
+
+    try {
+        $file = fopen($path, "w");
+
+        foreach ($felhasznalok as $felhasznalo){
+            fwrite($file, serialize($felhasznalo) . "\n");
+        }
+    } catch (Error $error){
+        header("Location: ../index?uzenet=" . $error->getMessage() . "torol");
+    } finally {
+        fclose($file);
+    }
+}
+
+
 function beolvas($path)
 {
+    include_once "../felhasznalok/Felhasznalo.php";
     $felhasznalok = [];
     $file = null;
     try {

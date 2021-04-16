@@ -1,4 +1,5 @@
 <?php
+include_once "config/deleteUser.php";
 if (isset($_GET['PHPSESSID'])){
     session_id($_GET['PHPSESSID']);
 }
@@ -9,6 +10,17 @@ $uzenet = "";
 if (isset($_GET['uzenet']) && strlen($_GET['uzenet']) > 0 && $_GET['uzenet'] === "login"){
     $uzenet = "<p>Sikeres bejelentkezés!</p>";
     $_GET['uzenet'] = "";
+}
+
+if (isset($_POST['delete'])){
+    deleteUser();
+    $_SESSION = array();
+    if (isset($_COOKIE)){
+        setcookie(session_name(), session_id(), time() - 3600, "/");
+    }
+    session_destroy();
+    header("Location: regisztracio.php?uzenet=delete");
+
 }
 ?>
 
@@ -55,6 +67,11 @@ if (isset($_GET['uzenet']) && strlen($_GET['uzenet']) > 0 && $_GET['uzenet'] ===
             </tbody>
         </table>
     </section>
+    <div>
+        <form method="post" action="profil.php" >
+            <input type="submit" name="delete" value="Profil törlése" />
+        </form>
+    </div>
 </main>
 
 <?php include_once "footer.php"; ?>

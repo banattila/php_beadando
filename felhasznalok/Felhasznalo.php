@@ -11,12 +11,15 @@ class Felhasznalo {
     private $hirlevel;
     private $profilKep;
 
-    public function __construct($nev, $fnev, $email, $pwd, $szulido) {
+    public function __construct($nev, $fnev, $email, $pwd, $szulido, $nem="Nincs megadva", $hirlevel=true, $profilKep="") {
         $this->nev = $nev;
         $this->fnev = $fnev;
         $this->email = $email;
         $this->pwd = $pwd;
         $this->szulido = $szulido;
+        $this->nem = $nem;
+        $this->hirlevel = $hirlevel;
+        $this->profilKep = $profilKep;
     }
 
     public function getNev() {

@@ -12,7 +12,7 @@ if (!isset($_SESSION['user'])){
     }
 }
 
-include_once "Linkek.php";
+include_once "config/Linkek.php";
 
 $kepek = [
     new Linkek("img/takaritas_1.jpg", "Első kép"),

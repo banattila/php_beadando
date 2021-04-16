@@ -12,7 +12,7 @@ if (!isset($_COOKIE['testcookie'])){
 }
 session_start();
 $id = session_id();
-include_once "Linkek.php";
+include_once "config/Linkek.php";
 
 $navLista = [
     new Linkek("index.php". $suffix, "Főoldal"),
