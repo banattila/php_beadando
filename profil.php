@@ -6,7 +6,6 @@ if (isset($_GET['PHPSESSID'])){
 session_start();
 $felhasznalo  = $_SESSION['user'];
 $uzenet = "";
-
 if (isset($_GET['uzenet']) && strlen($_GET['uzenet']) > 0 && $_GET['uzenet'] === "login"){
     $uzenet = "<p>Sikeres bejelentkezés!</p>";
     $_GET['uzenet'] = "";
