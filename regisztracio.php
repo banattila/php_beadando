@@ -7,140 +7,11 @@ $id = session_id();
 $uzenetek = [];
 $siker = false;
 
-include "felhasznalok/Felhasznalokezeles.php";
-include "felhasznalok/Felhasznalo.php";
-include "config/checkFunctions.php";
-$felhasznalok = beolvas("felhasznalok/felhasznalok.txt");
-
-$nev = "";
-$fnev = "";
-$email = "";
-$pwd = "";
-$pwd2 = "";
-$nem = "";
-$velemeny = "";
-$felh = null;
-$szulido = "";
-
-if (isset($_POST["submit"])) {
-
-    try {
-        $nev = checkNev();
-    } catch (BeviteliAdatokException $exception){
-        $uzenetek[] = $exception->getMessage();
-    }
-
-    try{
-        $fnev = checkFNev($felhasznalok);
-    } catch (BeviteliAdatokException $exception){
-        $uzenetek[] = $exception->getMessage();
-    }
-
-    try{
-        $pwd = checkPwd('pwd');
-    } catch (BeviteliAdatokException $exception){
-        $uzenetek[] = $exception->getMessage();
-    }
-
-    try{
-        $pwd2 = checkPwd('pwd2');
-    } catch (BeviteliAdatokException $exception){
-        $uzenetek[] = $exception->getMessage();
-    }
-
-    try {
-        checkSamePwds($pwd, $pwd2);
-    } catch (BeviteliAdatokException $exception){
-        $uzenetek[] = $exception->getMessage();
-    }
-
-    try {
-        $email = checkEmail();
-    } catch (BeviteliAdatokException $exception){
-        $uzenetek[] = $exception->getMessage();
-    }
-
-    try {
-        $szulido = checkAge();
-    }catch (BeviteliAdatokException $exception){
-        $uzenetek[] = $exception->getMessage();
-    }
-
-    //név legalább 3 karakter hosszú
-/*    if (isset($_POST['nev']) && strlen($_POST['nev']) > 3){
-        return $_POST['nev'];
-    } else {
-        $uzenetek[] = "Túl rövid a név";
-    }*/
-
-    //felhasználónév foglalt-e
-
-/*    if (isset($_POST['fnev'])) {
-        $fnev = $_POST['fnev'];
-
-        foreach ($felhasznalok as $felhasznalo) {
-            if ($felhasznalo->getFnev() === $fnev) {
-                $uzenetek[] = "A felhasználónév már foglalt";
-            }
-        }
-    }*/
-    //érvényes formátumú email-cím
-
-    /*if (isset($_POST['email'])) {
-        $email = $_POST['email'];
-    } else {
-        $uzenetek = "Hibás email formátum";
-    }*/
-
-    //a jelszó legalább 8 karakter hosszú
-
-
-    /*if (isset($_POST['pwd']) && strlen($_POST['pwd']) >= 8) {
-        $pwd = $_POST['pwd'];
-    } else {
-        $uzenetek[] = "Legalább 8 karakter hosszú legyen a jelszó";
-    }*/
-
-    //a két jelszó megegyezik-e
-
-
-
-    //18 évnél idősebb
-    /*if (isset($_POST['bdate'])){
-        $time = $_POST['bdate'];
-        /*$date = date('Y-m-d');
-        $currentDate = date('Y-m-d');
-        $uzenet[] = $time;
-
-    }*/
-
-
-    if (count($uzenetek) === 0 ) {
-        $felh = new Felhasznalo($nev, $fnev, $email, $pwd, $szulido);
-        if (isset($_POST['nem'])){
-            $felh->setNem($_POST['nem']);
-        }
-        if (isset($_POST['hirlevel'])){
-            if (count($_POST['hirlevel']) > 0){
-                $felh->setHirlevel(true);
-            } else {
-                $felh->setHirlevel(false);
-            }
-        }
-        try {
-            savePic("img/profile/", $felh);
-        } catch (BeviteliAdatokException $exception){
-            $uzenetek[] = $exception->getMessage();
-        }
-
-
-        kiir($felh, "felhasznalok/felhasznalok.txt");
-        $siker = true;
-    } else {
-        $siker = false;
-        $mutat = true;
-    }
+if (isset($_POST['submit'])){
+    include "config/regiszterUser.php";
+    register($uzenetek, $siker);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="hu">
@@ -218,12 +89,6 @@ if (isset($_POST["submit"])) {
                 </label>
             </div>
             <div class="input-container">
-                <label>Ha van hozzáfűznivalója, ide nyugodtan írja le
-                    <textarea name="velemeny" cols="40" rows="10" wrap="soft" maxlength="500"
-                              autocomplete="off"></textarea>
-                </label>
-            </div>
-            <div class="input-container">
                 <label id="file-feltoltes">Profilkép feltöltése <img id="feltoltes-icon" src="img/upload.png"
                                                                      alt="upload"/>
                     <input type="file" name="kep" accept="image/*"/>
@@ -246,5 +111,6 @@ if (isset($_POST["submit"])) {
         </form>
     </div>
 </main>
+<?php include_once "includes/footer.php"?>
 </body>
 </html>

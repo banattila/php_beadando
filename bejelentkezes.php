@@ -47,7 +47,7 @@ if (isset($_POST['login'])) {
                     $b['profile'] = $felhasznalo->getProfilKep();
                     $b['Hírlevelet kér'] = ($felhasznalo->getHirlevel())?"Igen":"Nem";
                     $_SESSION['user'] = $b;
-                    header("Location: profil.php?PHPSESSID=". session_id());
+                    header("Location: profil.php" . $GLOBALS['suffix']);
                 }
             }
         }

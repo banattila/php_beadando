@@ -5,7 +5,7 @@ include "exceptions/BeviteliAdatokException.php";
 
 function checkNev() :string{
     if (isset($_POST['nev']) && strlen($_POST['nev']) > 3){
-        return $_POST['nev'];
+        return htmlspecialchars($_POST['nev']);
     } else {
         throw new BeviteliAdatokException("Hosszabb nevet adj meg");
     }
@@ -14,7 +14,7 @@ function checkNev() :string{
 function checkFNev($felhasznalok): string {
     $fnev = "";
     if (isset($_POST['fnev'])) {
-        $fnev = $_POST['fnev'];
+        $fnev = htmlspecialchars($_POST['fnev']);
         if (strlen($fnev) <=5){
             throw new BeviteliAdatokException("A felhasználónév túl rövid");
         }
@@ -30,7 +30,7 @@ function checkFNev($felhasznalok): string {
 
 function checkPwd(string $pwd): string{
     if (isset($_POST[$pwd]) && strlen($_POST[$pwd]) >= 8) {
-        return $_POST[$pwd];
+        return htmlspecialchars($_POST[$pwd]);
     } else {
         throw new BeviteliAdatokException("A jelszó nem megfelelő!");
     }
@@ -38,7 +38,7 @@ function checkPwd(string $pwd): string{
 
 function checkEmail(): string{
     if (isset($_POST['email'])) {
-        $email = $_POST['email'];
+        $email = htmlspecialchars($_POST['email']);
         return $email;
     } else {
         throw new BeviteliAdatokException("Nem megfelelő email formátum");
@@ -56,7 +56,7 @@ function checkSamePwds($pwd, $pwd2): bool{
 function checkAge(): string{
     $bdate = "";
     if (isset($_POST['bdate'])){
-        $bdate = $_POST['bdate'];
+        $bdate = htmlspecialchars($_POST['bdate']);
         if (time() > strtotime("+18 years", strtotime($bdate))){
             $bdate = date("Y-m-d", strtotime($bdate));
         } else {
