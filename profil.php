@@ -1,10 +1,7 @@
 <?php
-include_once "config/deleteUser.php";
-if (isset($_GET['PHPSESSID'])){
-    session_id($_GET['PHPSESSID']);
-}
-session_start();
-$felhasznalo  = $_SESSION['user'];
+include "config/checkCookieEnabled.php";
+checkCookiesEnabled();
+$felhasznalo = $_SESSION['user'];
 $uzenet = "";
 if (isset($_GET['uzenet']) && strlen($_GET['uzenet']) > 0 && $_GET['uzenet'] === "login"){
     $uzenet = "<p>Sikeres bejelentkezés!</p>";

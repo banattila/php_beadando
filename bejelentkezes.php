@@ -1,7 +1,7 @@
 <?php
 
-session_start();
-$id = session_id();
+include "config/checkCookieEnabled.php";
+checkCookiesEnabled();
 
 $messages = "";
 include "config/bejelentkez.php";

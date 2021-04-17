@@ -1,9 +1,6 @@
 <?php
-if (isset($_GET['PHPSESSID'])){
-    session_id($_GET['PHPSESSID']);
-}
-
-session_start();
+include "config/checkCookieEnabled.php";
+checkCookiesEnabled();
 if (!isset($_SESSION['user'])){
     if (isset($GLOBALS['suffix']) && $GLOBALS['suffix'] !== ""){
         header("Location: bejelentkezes.php". $GLOBALS['suffix'] ."&uzenet=galeria");

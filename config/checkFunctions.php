@@ -1,5 +1,4 @@
 <?php
-session_start();
 include "exceptions/BeviteliAdatokException.php";
 
 
@@ -45,11 +44,13 @@ function checkEmail(): string{
     }
 }
 
-function checkSamePwds($pwd, $pwd2): bool{
-    if (strlen($pwd) > 0 && strlen($pwd2) > 0 && $pwd === $pwd2){
-        return true;
-    } else {
-        throw new BeviteliAdatokException("A két jelszó nem egyezik meg");
+function checkSamePwds(string $pwd, string $pwd2): bool{
+    if (isset($_POST[$pwd]) && isset($_POST[$pwd2])){
+        if (strlen($_POST[$pwd]) > 0 && strlen($_POST[$pwd2]) > 0 && $_POST[$pwd] === $_POST[$pwd2]){
+            return true;
+        } else {
+            throw new BeviteliAdatokException("A két jelszó nem egyezik meg");
+        }
     }
 }
 

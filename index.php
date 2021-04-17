@@ -1,10 +1,6 @@
 <?php
-
-if (isset($_GET['PHPSESSID'])){
-    session_id($_GET['PHPSESSID']);
-}
-session_start();
-$id = session_id();
+include "config/checkCookieEnabled.php";
+checkCookiesEnabled();
 ?>
 
 <!DOCTYPE html>

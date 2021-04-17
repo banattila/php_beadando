@@ -1,4 +1,5 @@
 <?php
+include "../felhasznalok/Felhasznalo.php";
 
 function kiir(Felhasznalo $felhasznalo, $path)
 {
@@ -35,7 +36,6 @@ function torol($path, $felhasznalok){
 
 function beolvas($path)
 {
-    include_once "../felhasznalok/Felhasznalo.php";
     $felhasznalok = [];
     $file = null;
     try {

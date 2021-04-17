@@ -1,9 +1,6 @@
 <?php
-if (isset($_GET['PHPSESSID'])){
-    session_id($_GET['PHPSESSID']);
-}
-session_start();
-$id = session_id();
+include "config/checkCookieEnabled.php";
+checkCookiesEnabled();
 $uzenetek = [];
 $siker = false;
 
@@ -34,13 +31,7 @@ if (isset($_POST['submit'])){
 <main>
     <div class="<?php if (count($uzenetek) > 0) echo "form-container"; ?>">
         <?php
-        if ($siker === true){
-            if (isset($GLOBALS['suffix']) && $GLOBALS['suffix'] !== ""){
-                header("Location: bejelentkezes.php". $GLOBALS['suffix'] ."&uzenet=reg");
-            } else {
-                header("Location: bejelentkezes.php?uzenet=reg");
-            }
-        } else {
+        if ($siker !== true){
             foreach ($uzenetek as $uzenet) {
                 echo "<p>" . $uzenet . "</p>";
             }

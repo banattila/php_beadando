@@ -32,7 +32,7 @@ function register(&$uzenetek, &$siker){
     }
 
     try {
-        checkSamePwds($pwd, $pwd2);
+        checkSamePwds('pwd', 'pwd2');
     } catch (BeviteliAdatokException $exception){
         $uzenetek[] = $exception->getMessage();
     }
@@ -72,5 +72,13 @@ function register(&$uzenetek, &$siker){
         $siker = true;
     } else {
         $siker = false;
+    }
+
+    if ($siker === true) {
+        if (isset($GLOBALS['suffix']) && $GLOBALS['suffix'] !== "") {
+            header("Location: bejelentkezes.php" . $GLOBALS['suffix'] . "&uzenet=reg");
+        } else {
+            header("Location: bejelentkezes.php?uzenet=reg");
+        }
     }
 }

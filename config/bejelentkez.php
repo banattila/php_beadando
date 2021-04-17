@@ -38,7 +38,7 @@ function login(&$messages)
                     $adatok['Hírlevelet kér'] = ($felhasznalo->getHirlevel()) ? "Igen" : "Nem";
                     $_SESSION['user'] = $adatok;
                     if (isset($_COOKIE['testcookie'])){
-                        header("Location: profil.php");
+                        header("Location: profil.php?uzenet=login");
                     } else {
                         header("Location: profil.php?PHPSESSID=" . session_id());
                     }

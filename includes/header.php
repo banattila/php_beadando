@@ -1,17 +1,6 @@
 <?php
-setcookie("testcookie", "hello");
-if (!isset($_COOKIE['testcookie'])){
-    if (isset($_GET['PHPSESSID'])){
-        session_id($_GET['PHPSESSID']);
-        $id = session_id();
-        $suffix = "?PHPSESSID=" . $id;
-        $GLOBALS['suffix'] = $suffix;
-    } else {
-        $suffix = "";
-    }
-}
-session_start();
-$id = session_id();
+$suffix = $GLOBALS['suffix'];
+
 include_once "config/Linkek.php";
 
 $navLista = [
