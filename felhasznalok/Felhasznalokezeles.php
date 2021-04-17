@@ -1,11 +1,11 @@
 <?php
 
 class Felhasznalokezeles {
-    public static function kiir(Felhasznalo $felhasznalo, $path)
+    public static function kiir(Felhasznalo $felhasznalo)
     {
         $file = null;
         try {
-            $file = fopen($path, "a");
+            $file = fopen("felhasznalok/felhasznalok.txt", "a");
 
             fwrite($file, serialize($felhasznalo) . "\n");
         } catch (Error $error) {
@@ -17,11 +17,11 @@ class Felhasznalokezeles {
 
     }
 
-    public static function torol($path, $felhasznalok){
+    public static function torol($felhasznalok){
         $file = null;
 
         try {
-            $file = fopen($path, "w");
+            $file = fopen("felhasznalok/felhasznalok.txt", "w");
 
             foreach ($felhasznalok as $felhasznalo){
                 fwrite($file, serialize($felhasznalo) . "\n");
@@ -34,12 +34,12 @@ class Felhasznalokezeles {
     }
 
 
-    public static function beolvas($path)
+    public static function beolvas()
     {
         $felhasznalok = [];
         $file = null;
         try {
-            $file = fopen($path, "r");
+            $file = fopen("felhasznalok/felhasznalok.txt", "r");
 
             while (($line = fgets($file)) !== false) {
                 $felhasznalo = unserialize($line);

@@ -18,7 +18,7 @@ class Login{
         include  "felhasznalok/Felhasznalokezeles.php";
         include  "felhasznalok/Felhasznalo.php";
 
-        $felhasznalok = Felhasznalokezeles::beolvas("felhasznalok/felhasznalok.txt");
+        $felhasznalok = Felhasznalokezeles::beolvas();
 
         if (!isset($_POST['fnev']) || trim($_POST['fnev']) === "" || !isset($_POST['pwd']) || trim($_POST['pwd']) === "") {
             $messages = "Minden mezőt ki kell tölteni";

@@ -8,7 +8,7 @@ class Register{
         include "felhasznalok/Felhasznalokezeles.php";
         include "felhasznalok/Felhasznalo.php";
 
-        $felhasznalok = Felhasznalokezeles::beolvas("felhasznalok/felhasznalok.txt");
+        $felhasznalok = Felhasznalokezeles::beolvas();
         $checker = new Checker();
 
         try {
@@ -72,7 +72,7 @@ class Register{
             }
 
 
-            Felhasznalokezeles::kiir($felh, "felhasznalok/felhasznalok.txt");
+            Felhasznalokezeles::kiir($felh, );
             $siker = true;
         } else {
             $siker = false;

@@ -7,7 +7,7 @@ class DeleteUser {
         include "felhasznalok/Felhasznalo.php";
         include "felhasznalok/Felhasznalokezeles.php";
 
-        $felhasznalok = Felhasznalokezeles::beolvas("felhasznalok/felhasznalok.txt");
+        $felhasznalok = Felhasznalokezeles::beolvas();
         $key = 0;
         foreach ($felhasznalok as $felh){
             if ($felh instanceof Felhasznalo){
@@ -22,7 +22,7 @@ class DeleteUser {
         }
         unset($felhasznalok[$key]);
 
-        Felhasznalokezeles::torol("felhasznalok/felhasznalok.txt", $felhasznalok);
+        Felhasznalokezeles::torol($felhasznalok);
 
         $_SESSION = array();
         if (isset($_COOKIE)){
