@@ -4,7 +4,7 @@ class Register{
 
 
     public static function register(&$uzenetek, &$siker){
-        include "config/checkFunctions.php";
+        include "config/Checker.php";
         include "felhasznalok/Felhasznalokezeles.php";
         include "felhasznalok/Felhasznalo.php";
 
