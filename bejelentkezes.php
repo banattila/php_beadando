@@ -1,16 +1,16 @@
 <?php
 
-include "config/checkCookieEnabled.php";
-checkCookiesEnabled();
+include "config/CheckCookies.php";
+CheckCookies::checkCookiesEnabled();
 
 $messages = "";
-include "config/bejelentkez.php";
+include "config/Login.php";
 
 if (isset($_GET['uzenet'])){
-    messages($messages);
+    Login::messages($messages);
 }
 if (isset($_POST['login'])) {
-    login($messages);
+    Login::login($messages);
 }
 ?>
 
@@ -21,8 +21,7 @@ if (isset($_POST['login'])) {
     <meta http-equiv="Content-Type" name="text/html"/>
     <meta name="author" content="Tóbel Dávid, Bán Attila"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10.0, user-scalable=yes"/>
-    <title><?php include "config/config.php";
-        getTitle(); ?></title>
+    <title>Bejelentkezés</title>
     <link rel="icon" href="img/Kep_rolunk.png"/>
     <link rel="stylesheet" href="style/alap.css"/>
     <link rel="stylesheet" href="style/querik-animaciok.css"/>

@@ -1,6 +1,6 @@
 <?php
-include "config/checkCookieEnabled.php";
-checkCookiesEnabled();
+include "config/CheckCookies.php";
+CheckCookies::checkCookiesEnabled();
 if (!isset($_SESSION['user'])){
     if (isset($GLOBALS['suffix']) && $GLOBALS['suffix'] !== ""){
         header("Location: bejelentkezes.php". $GLOBALS['suffix'] ."&uzenet=galeria");
@@ -27,8 +27,7 @@ $kepek = [
     <meta charset="UTF-8"/>
     <meta http-equiv="Content-Type" name="text/html"/>
     <meta name="author" content="Tóbel Dávid, Bán Attila"/>
-    <title><?php include "config/config.php";
-        getTitle(); ?></title>
+    <title>Galéria</title>
     <link rel="stylesheet" href="style/alap.css"/>
     <link rel="stylesheet" href="style/querik-animaciok.css"/>
     <link rel="stylesheet" href="style/id.css"/>

@@ -1,6 +1,6 @@
 <?php
-include "config/checkCookieEnabled.php";
-checkCookiesEnabled();
+include "config/CheckCookies.php";
+CheckCookies::checkCookiesEnabled();
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ checkCookiesEnabled();
     <meta http-equiv="Content-Type" content="text/html"/>
     <meta charset="UTF-8"/>
     <meta name="author" content="Tóbel Dávid, Bán Attila"/>
-    <title><?php include "config/config.php"; getTitle();?></title>
+    <title>Főoldal</title>
     <link rel="stylesheet" href="style/alap.css"/>
     <link rel="stylesheet" href="style/querik-animaciok.css"/>
     <link rel="stylesheet" href="style/id.css"/>

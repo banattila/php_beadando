@@ -1,91 +1,97 @@
 <?php
 include "exceptions/BeviteliAdatokException.php";
 
+class Checker {
 
-function checkNev() :string{
-    if (isset($_POST['nev']) && strlen($_POST['nev']) > 3){
-        return htmlspecialchars($_POST['nev']);
-    } else {
-        throw new BeviteliAdatokException("Hosszabb nevet adj meg");
+    public function __construct(){
+
     }
-}
 
-function checkFNev($felhasznalok): string {
-    $fnev = "";
-    if (isset($_POST['fnev'])) {
-        $fnev = htmlspecialchars($_POST['fnev']);
-        if (strlen($fnev) <=5){
-            throw new BeviteliAdatokException("A felhasználónév túl rövid");
+    function checkNev() :string{
+        if (isset($_POST['nev']) && strlen($_POST['nev']) > 3){
+            return htmlspecialchars($_POST['nev']);
+        } else {
+            throw new BeviteliAdatokException("Hosszabb nevet adj meg");
         }
-        foreach ($felhasznalok as $felhasznalo) {
-            if ($felhasznalo->getFnev() === $fnev) {
-                throw new BeviteliAdatokException("A felhasználónév már foglalt!");
+    }
 
+    function checkFNev($felhasznalok): string {
+        $fnev = "";
+        if (isset($_POST['fnev'])) {
+            $fnev = htmlspecialchars($_POST['fnev']);
+            if (strlen($fnev) <=5){
+                throw new BeviteliAdatokException("A felhasználónév túl rövid");
+            }
+            foreach ($felhasznalok as $felhasznalo) {
+                if ($felhasznalo->getFnev() === $fnev) {
+                    throw new BeviteliAdatokException("A felhasználónév már foglalt!");
+
+                }
             }
         }
+        return $fnev;
     }
-    return $fnev;
-}
 
-function checkPwd(string $pwd): string{
-    if (isset($_POST[$pwd]) && strlen($_POST[$pwd]) >= 8) {
-        return htmlspecialchars($_POST[$pwd]);
-    } else {
-        throw new BeviteliAdatokException("A jelszó nem megfelelő!");
-    }
-}
-
-function checkEmail(): string{
-    if (isset($_POST['email'])) {
-        $email = htmlspecialchars($_POST['email']);
-        return $email;
-    } else {
-        throw new BeviteliAdatokException("Nem megfelelő email formátum");
-    }
-}
-
-function checkSamePwds(string $pwd, string $pwd2): bool{
-    if (isset($_POST[$pwd]) && isset($_POST[$pwd2])){
-        if (strlen($_POST[$pwd]) > 0 && strlen($_POST[$pwd2]) > 0 && $_POST[$pwd] === $_POST[$pwd2]){
-            return true;
+    function checkPwd(string $pwd): string{
+        if (isset($_POST[$pwd]) && strlen($_POST[$pwd]) >= 8) {
+            return htmlspecialchars($_POST[$pwd]);
         } else {
-            throw new BeviteliAdatokException("A két jelszó nem egyezik meg");
+            throw new BeviteliAdatokException("A jelszó nem megfelelő!");
         }
     }
-}
 
-function checkAge(): string{
-    $bdate = "";
-    if (isset($_POST['bdate'])){
-        $bdate = htmlspecialchars($_POST['bdate']);
-        if (time() > strtotime("+18 years", strtotime($bdate))){
-            $bdate = date("Y-m-d", strtotime($bdate));
+    function checkEmail(): string{
+        if (isset($_POST['email'])) {
+            $email = htmlspecialchars($_POST['email']);
+            return $email;
         } else {
-            throw new BeviteliAdatokException("Idősebbnek kell lennie 18 évnél");
+            throw new BeviteliAdatokException("Nem megfelelő email formátum");
         }
     }
-    return $bdate;
-}
 
-function savePic($path, Felhasznalo $felhasznalo): bool{
-    if (isset($_FILES['kep'])){
-
-        $kiterjesztesek = ["png", "jpg", "jpeg"];
-        $kiterjesztes = strtolower(pathinfo($_FILES['kep']['name'], PATHINFO_EXTENSION));
-        if(in_array($kiterjesztes, $kiterjesztesek)){
-            if (isset($_POST['nev'])){
-                $cel = $path . $_POST['nev'] . "." . strtolower(pathinfo($_FILES['kep']['name'], PATHINFO_EXTENSION));
+    function checkSamePwds(string $pwd, string $pwd2): bool{
+        if (isset($_POST[$pwd]) && isset($_POST[$pwd2])){
+            if (strlen($_POST[$pwd]) > 0 && strlen($_POST[$pwd2]) > 0 && $_POST[$pwd] === $_POST[$pwd2]){
+                return true;
             } else {
-                $cel = $path. $_FILES['kep']['name'];
+                throw new BeviteliAdatokException("A két jelszó nem egyezik meg");
             }
-            if (move_uploaded_file($_FILES['kep']['tmp_name'], $cel)){
-                $felhasznalo->setProfilKep($cel);
-            } else {
-                throw new BeviteliAdatokException("A kép mentése nem sikerült");
-            }
-        } else {
-            return false;
         }
     }
-    return true;
+
+    function checkAge(): string{
+        $bdate = "";
+        if (isset($_POST['bdate'])){
+            $bdate = htmlspecialchars($_POST['bdate']);
+            if (time() > strtotime("+18 years", strtotime($bdate))){
+                $bdate = date("Y-m-d", strtotime($bdate));
+            } else {
+                throw new BeviteliAdatokException("Idősebbnek kell lennie 18 évnél");
+            }
+        }
+        return $bdate;
+    }
+
+    function savePic($path, Felhasznalo $felhasznalo): bool{
+        if (isset($_FILES['kep'])){
+
+            $kiterjesztesek = ["png", "jpg", "jpeg"];
+            $kiterjesztes = strtolower(pathinfo($_FILES['kep']['name'], PATHINFO_EXTENSION));
+            if(in_array($kiterjesztes, $kiterjesztesek)){
+                if (isset($_POST['nev'])){
+                    $cel = $path . $_POST['nev'] . "." . strtolower(pathinfo($_FILES['kep']['name'], PATHINFO_EXTENSION));
+                } else {
+                    $cel = $path. $_FILES['kep']['name'];
+                }
+                if (move_uploaded_file($_FILES['kep']['tmp_name'], $cel)){
+                    $felhasznalo->setProfilKep($cel);
+                } else {
+                    throw new BeviteliAdatokException("A kép mentése nem sikerült");
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -1,7 +1,12 @@
 <?php
-include "config/checkCookieEnabled.php";
-checkCookiesEnabled();
+include "config/CheckCookies.php";
+CheckCookies::checkCookiesEnabled();
+
+include "config/DeleteUser.php";
+
 $felhasznalo = $_SESSION['user'];
+
+var_dump($felhasznalo);
 $uzenet = "";
 if (isset($_GET['uzenet']) && strlen($_GET['uzenet']) > 0 && $_GET['uzenet'] === "login"){
     $uzenet = "<p>Sikeres bejelentkezés!</p>";
@@ -9,7 +14,7 @@ if (isset($_GET['uzenet']) && strlen($_GET['uzenet']) > 0 && $_GET['uzenet'] ===
 }
 
 if (isset($_POST['delete'])){
-    deleteUser();
+    DeleteUser::deleteUser();
 }
 ?>
 
@@ -20,7 +25,7 @@ if (isset($_POST['delete'])){
     <meta http-equiv="Content-Type" name="text/html"/>
     <meta name="author" content="Tóbel Dávid, Bán Attila"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10.0, user-scalable=yes"/>
-    <title><?php include "config/config.php"; getTitle();?></title>
+    <title>Profil</title>
     <link rel="icon" href="img/Kep_rolunk.png"/>
     <link rel="stylesheet" href="style/alap.css"/>
     <link rel="stylesheet" href="style/querik-animaciok.css"/>

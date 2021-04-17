@@ -1,5 +1,9 @@
 <?php
-$suffix = $GLOBALS['suffix'];
+if (isset($GLOBALS['suffix'])){
+    $suffix = $GLOBALS['suffix'];
+} else {
+    $suffix = "";
+}
 
 include_once "config/Linkek.php";
 
@@ -22,6 +26,7 @@ $aktiv = explode("/", $_SERVER['REQUEST_URI'])[2];
 if (strpos($aktiv, "?")){
     $aktiv = explode("?", $aktiv)[0];
 }
+$GLOBALS['title'] = "";
 
 ?>
 
@@ -40,7 +45,7 @@ if (strpos($aktiv, "?")){
                 foreach ($navLista as $link) { ?>
                     <li class="alahuz <?php if ($link->getLink() === $aktiv) echo "aktiv" ?>">
                         <a href=<?php echo $link->getLink() . $GLOBALS['suffix']?>>
-                            <?php echo $link->getNev() ?>
+                            <?php echo $link->getNev();?>
                         </a>
                     </li>
                 <?php } ?>
